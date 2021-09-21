@@ -1,21 +1,27 @@
 /**
-`srotg` constructs a plane rotation
+Given the cartesian coordinates `(a, b)` of a point, parameters `c`, `s`, `r`
+and `z` are returned such that,
 ```
-   [  c  s ] [ a ] = [ r ]
-   [ -s  c ] [ b ]   [ 0 ]
+[  c  s ] [ a ] = [ r ]
+[ -s  c ] [ b ]   [ 0 ]
+
+and
+
+z =   s  , if |a| > |b|
+    1/c  , else if c != 0
+      z  , else
 ```
-satisfying `c**2 + s**2 = 1`.
 
 # Argumemts
-a, b, c, s are mutable references to f32s
+`a`, `b`, `c`, `s` are mutable references to `f32`s
 
 # Returns (arguments themselves are used as "return values")
-a -> r,
-b -> z,
-c -> as shown in above,
-s -> as shown in above,
+`a` -> `r`,
+`b` -> `z`,
+`c` -> `c`,
+`s` -> `s`,
 
-Based on reference BLAS level1 routine
+Based on reference BLAS level-1 routine
 Reference BLAS is a software package provided by Univ. of Tennessee,
 Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd.
 **/
@@ -63,23 +69,29 @@ pub extern "C" fn srotg(a: &mut f32, b: &mut f32, c: &mut f32, s: &mut f32) {
 }
 
 /**
-`drotg` constructs a plane rotation
+Given the cartesian coordinates `(a, b)` of a point, parameters `c`, `s`, `r`
+and `z` are returned such that,
 ```
-   [  c  s ] [ a ] = [ r ]
-   [ -s  c ] [ b ]   [ 0 ]
+[  c  s ] [ a ] = [ r ]
+[ -s  c ] [ b ]   [ 0 ]
+
+and
+
+z =   s  , if |a| > |b|
+    1/c  , else if c != 0
+      z  , else
 ```
-satisfying `c**2 + s**2 = 1`.
 
 # Argumemts
-a, b, c, s are mutable references to f64s
+`a`, `b`, `c`, `s` are mutable references to `f64`s
 
 # Returns (arguments themselves are used as "return values")
-a -> r,
-b -> z,
-c -> as shown in above,
-s -> as shown in above,
+`a` -> `r`,
+`b` -> `z`,
+`c` -> `c`,
+`s` -> `s`,
 
-Based on reference BLAS level1 routine
+Based on reference BLAS level-1 routine
 Reference BLAS is a software package provided by Univ. of Tennessee,
 Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd.
 **/

@@ -1,32 +1,45 @@
 /**
-Construct the modified Givens transformation matrix `h` which zeros the second
-component of the 2-vector `[d1.sqrt(). d2.sqrt()]` with `param[0] = dflag`.
+Given the cartesian coordinates `(x1, y1)` of the input vector and computes the
+components of a modified Givens transformation matrix `h` that zeroes the y
+component of the resulting vector:
+```
+[ x1 ] = h [x1 * d1.sqrt()]
+[ 0  ]     [y1 * d2.sqrt()]
+```
 
 There are four possibilities for `h`:
 ```
 flag    -1.0     0.0       1        -1
 
-h     h11 h12  1.0 h12  d11  1.0  1.0 0.0
+h     h11 h12  1.0 h12  h11  1.0  1.0 0.0
       h21 h22  h21 1.0  -1.0 h22  0.0 1.0
 ```
-
 Note that the constant values are implied from the `param[0]` and not stored in
 `param`.
 
 Values for `gamsq` and `rgamsq` used may be inexact since the actual scaling is
 done using `gam`.
 
+`d1`, `d2`, `x1`, `y1` are mutable references to `f32`s
+`param` is an array of `f32`s
+
 # Arguments
-d1, d2, x1, y1 are mutable references to f32s
+`d1` -> provides scaling factor for the x-coordinate of the input vector
+`d2` -> provides scaling factor for the y-coordinate of the input vector
+`x1` -> provides x-coordinate of the input vector
+`y1` -> provides y-coordinate of the input vector
 
 # Returns (arguments themselves are used as "return values")
-d1, d2, dx1 -> TODO
-param -> [flag, h11, h21, h12, h22]
+`d1`    -> provides the first diagonal element of the updated matrix
+`d2`    -> provides the second diagonal element of the updated matrix
+`x1`    -> provides the x-coordinate of the rotated vector before scaling
+`param` -> describes the `h` matrix `[flag, h11, h21, h12, h22]`
 
-Based on reference BLAS level1 routine
+Based on reference BLAS level-1 routine
 Reference BLAS is a software package provided by Univ. of Tennessee,
 Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd.
 **/
+#[no_mangle]
 pub extern "C" fn srotmg(d1: &mut f32, d2: &mut f32, x1: &mut f32, y1: &mut f32, param: *mut f32) {
     let gam = 4096_f32;
     let gamsq = 1.67772e7_f32;
@@ -38,6 +51,7 @@ pub extern "C" fn srotmg(d1: &mut f32, d2: &mut f32, x1: &mut f32, y1: &mut f32,
         let mut flag: f32;
         // There might be a bug regarding the following values.
         // Removing intializations here causes "use of possibily-uninitialized" error
+        // Probably because the whole "constant values are not stored in param" thing
         let (mut h11, mut h12, mut h21, mut h22) = (0_f32, 0_f32, 0_f32, 0_f32);
 
         if *d1 < 0. {
@@ -178,34 +192,47 @@ pub extern "C" fn srotmg(d1: &mut f32, d2: &mut f32, x1: &mut f32, y1: &mut f32,
 }
 
 /**
-Construct the modified Givens transformation matrix `h` which zeros the second
-component of the 2-vector `[d1.sqrt(). d2.sqrt()]` with `param[0] = dflag`.
+Given the cartesian coordinates `(x1, y1)` of the input vector and computes the
+components of a modified Givens transformation matrix `h` that zeroes the y
+component of the resulting vector:
+```
+[ x1 ] = h [x1 * d1.sqrt()]
+[ 0  ]     [y1 * d2.sqrt()]
+```
 
 There are four possibilities for `h`:
 ```
 flag    -1.0     0.0       1        -1
 
-h     h11 h12  1.0 h12  d11  1.0  1.0 0.0
+h     h11 h12  1.0 h12  h11  1.0  1.0 0.0
       h21 h22  h21 1.0  -1.0 h22  0.0 1.0
 ```
-
 Note that the constant values are implied from the `param[0]` and not stored in
 `param`.
 
 Values for `gamsq` and `rgamsq` used may be inexact since the actual scaling is
 done using `gam`.
 
+`d1`, `d2`, `x1`, `y1` are mutable references to `f64`s
+`param` is an array of `f64`s
+
 # Arguments
-d1, d2, x1, y1 are mutable references to f64s
+`d1` -> provides scaling factor for the x-coordinate of the input vector
+`d2` -> provides scaling factor for the y-coordinate of the input vector
+`x1` -> provides x-coordinate of the input vector
+`y1` -> provides y-coordinate of the input vector
 
 # Returns (arguments themselves are used as "return values")
-d1, d2, dx1 -> TODO
-param -> [flag, h11, h21, h12, h22]
+`d1`    -> provides the first diagonal element of the updated matrix
+`d2`    -> provides the second diagonal element of the updated matrix
+`x1`    -> provides the x-coordinate of the rotated vector before scaling
+`param` -> describes the `h` matrix `[flag, h11, h21, h12, h22]`
 
-Based on reference BLAS level1 routine
+Based on reference BLAS level-1 routine
 Reference BLAS is a software package provided by Univ. of Tennessee,
 Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd.
 **/
+#[no_mangle]
 pub extern "C" fn drotmg(d1: &mut f64, d2: &mut f64, x1: &mut f64, y1: &mut f64, param: *mut f64) {
     let gam = 4096_f64;
     let gamsq = 16777216_f64;
@@ -217,6 +244,7 @@ pub extern "C" fn drotmg(d1: &mut f64, d2: &mut f64, x1: &mut f64, y1: &mut f64,
         let mut flag: f64;
         // There might be a bug regarding the following values.
         // Removing intializations here causes "use of possibily-uninitialized" error
+        // Probably because the whole "constant values are not stored in param" thing
         let (mut h11, mut h12, mut h21, mut h22) = (0_f64, 0_f64, 0_f64, 0_f64);
 
         if *d1 < 0. {
