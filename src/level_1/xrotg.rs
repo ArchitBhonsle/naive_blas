@@ -16,10 +16,11 @@ z =   s  , if |a| > |b|
 `a`, `b`, `c`, `s` are mutable references to `f32`s
 
 # Returns (arguments themselves are used as "return values")
-`a` -> `r`,
-`b` -> `z`,
-`c` -> `c`,
-`s` -> `s`,
+`a` -> `r`
+`b` -> `z`
+`c` -> `c`
+`s` -> `s`
+
 
 Based on reference BLAS level-1 routine
 Reference BLAS is a software package provided by Univ. of Tennessee,
@@ -86,10 +87,11 @@ z =   s  , if |a| > |b|
 `a`, `b`, `c`, `s` are mutable references to `f64`s
 
 # Returns (arguments themselves are used as "return values")
-`a` -> `r`,
-`b` -> `z`,
-`c` -> `c`,
-`s` -> `s`,
+`a` -> `r`
+`b` -> `z`
+`c` -> `c`
+`s` -> `s`
+
 
 Based on reference BLAS level-1 routine
 Reference BLAS is a software package provided by Univ. of Tennessee,

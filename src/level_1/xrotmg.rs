@@ -4,7 +4,7 @@ components of a modified Givens transformation matrix `h` that zeroes the y
 component of the resulting vector:
 ```
 [ x1 ] = h [x1 * d1.sqrt()]
-[ 0  ]     [y1 * d2.sqrt()]
+[ 0 ]     [y1 * d2.sqrt()]
 ```
 
 There are four possibilities for `h`:
@@ -34,6 +34,7 @@ done using `gam`.
 `d2`    -> provides the second diagonal element of the updated matrix
 `x1`    -> provides the x-coordinate of the rotated vector before scaling
 `param` -> describes the `h` matrix `[flag, h11, h21, h12, h22]`
+
 
 Based on reference BLAS level-1 routine
 Reference BLAS is a software package provided by Univ. of Tennessee,
@@ -227,6 +228,7 @@ done using `gam`.
 `d2`    -> provides the second diagonal element of the updated matrix
 `x1`    -> provides the x-coordinate of the rotated vector before scaling
 `param` -> describes the `h` matrix `[flag, h11, h21, h12, h22]`
+
 
 Based on reference BLAS level-1 routine
 Reference BLAS is a software package provided by Univ. of Tennessee,
