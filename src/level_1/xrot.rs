@@ -32,11 +32,11 @@ Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd.
 **/
 #[no_mangle]
 pub extern "C" fn srotg(
-    n: &mut i32,
+    n: &mut isize,
     x: *mut f32,
-    inc_x: &mut i32,
+    inc_x: &mut isize,
     y: *mut f32,
-    inc_y: &mut i32,
+    inc_y: &mut isize,
     c: &mut f32,
     s: &mut f32,
 ) {
@@ -90,7 +90,7 @@ x[i] = c*x[i] + s*y[i]
 y[i] = c*y[i] - s*x[i]
 ```
 
-`n`, `inc_x` and `inc_y` are `i32`
+`n`, `inc_x` and `inc_y` are `isize`
 `c` and `s` are `f64`s
 `x` and `y` are arrays of `f64`s
 
@@ -114,11 +114,11 @@ Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd.
 **/
 #[no_mangle]
 pub extern "C" fn drotg(
-    n: &mut i32,
+    n: &mut isize,
     x: *mut f64,
-    inc_x: &mut i32,
+    inc_x: &mut isize,
     y: *mut f64,
-    inc_y: &mut i32,
+    inc_y: &mut isize,
     c: &mut f64,
     s: &mut f64,
 ) {

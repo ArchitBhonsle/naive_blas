@@ -4,15 +4,26 @@ components of a modified Givens transformation matrix `h` that zeroes the y
 component of the resulting vector:
 ```
 [ x1 ] = h [x1 * d1.sqrt()]
-[ 0 ]     [y1 * d2.sqrt()]
+[  0 ]     [y1 * d2.sqrt()]
 ```
 
 There are four possibilities for `h`:
 ```
-flag    -1.0     0.0       1        -1
-
-h     h11 h12  1.0 h12  h11  1.0  1.0 0.0
-      h21 h22  h21 1.0  -1.0 h22  0.0 1.0
++------+-------------+
+|    f |          h  |
++------+-------------+
+| -1.0 | [ h11 h12 ] |
+|      | [ h21 h22 ] |
+|------|-------------|
+|  0.0 | [ 1.0 h12 ] |
+|      | [ h21 1.0 ] |
+|------|-------------|
+|  1.0 | [ h11 1.0 ] |
+|      | [-1.0 h22 ] |
+|------|-------------|
+| -2.0 | [ 1.0 0.0 ] |
+|      | [ 0.0 1.0 ] |
++------+-------------+
 ```
 Note that the constant values are implied from the `param[0]` and not stored in
 `param`.
@@ -203,10 +214,21 @@ component of the resulting vector:
 
 There are four possibilities for `h`:
 ```
-flag    -1.0     0.0       1        -1
-
-h     h11 h12  1.0 h12  h11  1.0  1.0 0.0
-      h21 h22  h21 1.0  -1.0 h22  0.0 1.0
++------+-------------+
+|    f |          h  |
++------+-------------+
+| -1.0 | [ h11 h12 ] |
+|      | [ h21 h22 ] |
+|------|-------------|
+|  0.0 | [ 1.0 h12 ] |
+|      | [ h21 1.0 ] |
+|------|-------------|
+|  1.0 | [ h11 1.0 ] |
+|      | [-1.0 h22 ] |
+|------|-------------|
+| -2.0 | [ 1.0 0.0 ] |
+|      | [ 0.0 1.0 ] |
++------+-------------+
 ```
 Note that the constant values are implied from the `param[0]` and not stored in
 `param`.
