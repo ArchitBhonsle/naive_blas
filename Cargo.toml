@@ -1,9 +1,8 @@
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [package]
 authors = ["Archit Bhonsle <abhonsle2000@gmail.com"]
 categories = ["mathematics"]
-desciption = "BLAS in pure Rust"
+description = "BLAS in pure Rust"
 edition = "2018"
 keywords = ["linear-algebra", "BLAS"]
 license = "Apache-2.0"
@@ -13,3 +12,4 @@ repository = "https://github.com/ArchitBhonsle/naive_blas"
 version = "0.1.0"
 
 [dependencies]
+nd-slice = "*"
