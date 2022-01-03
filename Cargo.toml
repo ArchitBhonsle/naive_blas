@@ -12,4 +12,6 @@ repository = "https://github.com/ArchitBhonsle/naive_blas"
 version = "0.1.0"
 
 [dependencies]
-nd-slice = "*"
+nd-slice = "*" # I maintain this package myself so I don't think there will be any breaking changes
+num-traits = "0.2"
+num-complex = "0.4"
