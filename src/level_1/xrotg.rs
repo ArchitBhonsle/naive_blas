@@ -12,8 +12,17 @@ use num_traits::Float;
 ///     1/c if c != 0,
 ///     1   otherwise.
 ///
+/// Input:
+///     a: x co-ordinate for the point
+///     b: y co-ordinate for the point
+/// Output:
+///     a: contains the parameter r
+///     b: contains the parameter z
+///     c: contains the parameter c
+///     s: contains the parameter s
+///
 /// Note: Intel MKL also defines rotg for c and z.
-pub fn rrotg<T: Float>(a: &T, b: &T) -> (T, T, T, T) {
+pub fn rrotg<T: Float>(a: &mut T, b: &mut T, c: &mut T, s: &mut T) {
     let zero = num_traits::zero();
     let one = num_traits::one();
 
@@ -23,19 +32,15 @@ pub fn rrotg<T: Float>(a: &T, b: &T) -> (T, T, T, T) {
     let anorm = a.abs();
     let bnorm = b.abs();
 
-    // netlib BLAS mutates a to r and b to z.
-    let (c, s, r, z);
-
     if bnorm == zero {
-        c = one;
-        s = zero;
-        r = *a;
-        z = zero;
+        *c = one;
+        *s = zero;
+        *b = zero;
     } else if anorm == zero {
-        c = zero;
-        s = one;
-        r = *b;
-        z = one;
+        *c = zero;
+        *s = one;
+        *a = *b;
+        *b = one;
     } else {
         let scl = T::min(safmax, T::max(T::max(safmin, anorm), bnorm));
 
@@ -45,18 +50,19 @@ pub fn rrotg<T: Float>(a: &T, b: &T) -> (T, T, T, T) {
             b.signum()
         };
 
-        r = sigma * (scl * T::sqrt(T::powi(*a / scl, 2) + T::powi(*b / scl, 2)));
-        c = *a / r;
-        s = *b / r;
+        let r = sigma * (scl * T::sqrt(T::powi(*a / scl, 2) + T::powi(*b / scl, 2)));
+        *c = *a / r;
+        *s = *b / r;
 
-        z = if anorm > bnorm {
-            s
-        } else if c != zero {
-            one / c
+        let z = if anorm > bnorm {
+            *s
+        } else if *c != zero {
+            one / *c
         } else {
             one
         };
-    }
 
-    (c, s, r, z)
+        *a = r;
+        *b = z;
+    }
 }
