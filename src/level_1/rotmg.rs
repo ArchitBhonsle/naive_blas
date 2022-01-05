@@ -29,12 +29,12 @@ use num_traits::{Float, NumCast};
 ///         if flag = -1 -> H = |  1.0  0.0 |
 ///                             |  0.0  1.0 |
 ///         Note: -1.0, 0.0, 1.0 are assumed based on the flag and may not be set in param
-pub fn rotmg<'s, T: Float>(
+pub fn rotmg<T: Float>(
     d1: &mut T,
     d2: &mut T,
     x1: &mut T,
     y1: &mut T,
-    mut param: NdSliceMut<'s, T, 1>,
+    mut param: NdSliceMut<'_, T, 1>,
 ) {
     let zero: T = num_traits::zero();
     let one: T = num_traits::one();
