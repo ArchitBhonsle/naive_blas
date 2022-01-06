@@ -1,7 +1,7 @@
 use nd_slice::NdSliceMut;
 use num_traits::{Float, NumCast};
 
-/// Performs rotation of points in a plane
+/// Performs rotation of points in a plane.
 ///
 /// Given two vectors x and y, each element is replaced as:
 ///     x[i] = c*x[i] + s*y[i]
@@ -16,8 +16,10 @@ use num_traits::{Float, NumCast};
 ///     c: scalar
 ///     s: scalar
 /// Output:
-///     x: rotated x
-///     y: rotated y
+///     x: modified x
+///     y: modified y
+///
+/// Note: Intel MKL also defines rotg for c and z too.
 pub fn rot<T: Float>(
     n: isize,
     mut x: NdSliceMut<'_, T, 1>,
@@ -45,14 +47,14 @@ pub fn rot<T: Float>(
     }
 
     let mut ix = if incx < 0 {
-        (-(n as isize) + 1) * incx + 1
+        (1 - (n as isize)) * incx
     } else {
-        1
+        0
     };
     let mut iy = if incy < 0 {
-        (-(n as isize) + 1) * incy + 1
+        (1 - (n as isize)) * incy
     } else {
-        1
+        0
     };
 
     for _ in 0..n {

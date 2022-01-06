@@ -21,7 +21,7 @@ use num_traits::Float;
 ///     c: contains the parameter c
 ///     s: contains the parameter s
 ///
-/// Note: Intel MKL also defines rotg for c and z.
+/// Note: Intel MKL also defines rotg for c and z too.
 pub fn rotg<T: Float>(a: &mut T, b: &mut T, c: &mut T, s: &mut T) {
     let zero = num_traits::zero();
     let one = num_traits::one();
