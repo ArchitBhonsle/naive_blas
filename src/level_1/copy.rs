@@ -1,6 +1,6 @@
 use nd_slice::NdSliceMut;
 
-/// Copies one vector to another
+/// Copies one vector to another.
 ///
 /// y = x
 ///
@@ -13,12 +13,13 @@ use nd_slice::NdSliceMut;
 /// Output:
 ///     y: copies x
 pub fn copy<T: Copy /* both Float and Complex<T> implement Copy */>(
-    n: isize,
-    x: NdSliceMut<'_, T, 1>,
-    incx: isize,
-    mut y: NdSliceMut<'_, T, 1>,
-    incy: isize,
+    n: &isize,
+    x: &mut NdSliceMut<'_, T, 1>,
+    incx: &isize,
+    y: &mut NdSliceMut<'_, T, 1>,
+    incy: &isize,
 ) {
+    let (n, incx, incy) = (*n, *incx, *incy);
     if n < 0 {
         return;
     }

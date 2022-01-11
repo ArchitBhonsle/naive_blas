@@ -2,7 +2,7 @@ use nd_slice::NdSliceMut;
 use num_complex::Complex;
 use num_traits::Float;
 
-/// Computes the product of a vector by a scalar
+/// Computes the product of a vector by a scalar.
 ///
 /// x = a * x
 ///
@@ -13,7 +13,9 @@ use num_traits::Float;
 ///     incx: increment for x
 /// Output:
 ///     x: modified x
-pub fn scal_real<T: Float>(n: isize, a: T, mut x: NdSliceMut<'_, T, 1>, incx: isize) {
+pub fn scal_real<T: Float>(n: &isize, a: &T, x: &mut NdSliceMut<'_, T, 1>, incx: &isize) {
+    let (n, a, incx) = (*n, *a, *incx);
+
     if n < 0 || incx < 0 {
         return;
     }

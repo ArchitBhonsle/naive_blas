@@ -34,7 +34,7 @@ pub fn rotmg<T: Float>(
     d2: &mut T,
     x1: &mut T,
     y1: &mut T,
-    mut param: NdSliceMut<'_, T, 1>,
+    param: &mut NdSliceMut<'_, T, 1>,
 ) {
     let zero: T = num_traits::zero();
     let one: T = num_traits::one();

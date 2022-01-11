@@ -7,33 +7,33 @@ use nd_slice::NdSliceMut;
 ///     x: array
 ///     incx: increment for x
 ///     y: array
-///     incy: increment for x
+///     incy: increment for y
 /// Output:
 ///     x: modified x
 ///     y: modified y
 pub fn swap<T>(
-    n: isize,
-    mut x: NdSliceMut<'_, T, 1>,
-    incx: isize,
-    mut y: NdSliceMut<'_, T, 1>,
-    incy: isize,
+    n: &isize,
+    x: &mut NdSliceMut<'_, T, 1>,
+    incx: &isize,
+    y: &mut NdSliceMut<'_, T, 1>,
+    incy: &isize,
 ) {
-    if n < 0 {
+    if n < &0 {
         return;
     }
-    let n = n as usize;
+    let n = *n as usize;
 
-    if incx == 1 && incy == 1 {
+    if incx == &1 && incy == &1 {
         for i in 0..n {
             std::mem::swap(&mut x[[i]], &mut y[[i]]);
         }
     } else {
-        let mut ix = if incx < 0 {
+        let mut ix = if incx < &0 {
             (1 - (n as isize)) * incx
         } else {
             0
         };
-        let mut iy = if incy < 0 {
+        let mut iy = if incy < &0 {
             (1 - (n as isize)) * incy
         } else {
             0

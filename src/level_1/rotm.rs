@@ -28,13 +28,15 @@ use num_traits::Float;
 ///     x: modified x
 ///     y: modified y
 pub fn rotm<T: Float>(
-    n: isize,
-    mut x: NdSliceMut<'_, T, 1>,
-    incx: isize,
-    mut y: NdSliceMut<'_, T, 1>,
-    incy: isize,
-    param: NdSliceMut<'_, T, 1>,
+    n: &isize,
+    x: &mut NdSliceMut<'_, T, 1>,
+    incx: &isize,
+    y: &mut NdSliceMut<'_, T, 1>,
+    incy: &isize,
+    param: &mut NdSliceMut<'_, T, 1>,
 ) {
+    let (n, incx, incy) = (*n, *incx, *incy);
+
     let zero: T = num_traits::zero();
     let two: T = num_traits::one::<T>() + num_traits::one();
 

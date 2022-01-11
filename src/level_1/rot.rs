@@ -21,20 +21,21 @@ use num_traits::{Float, NumCast};
 ///
 /// Note: Intel MKL also defines rotg for c and z too.
 pub fn rot<T: Float>(
-    n: isize,
-    mut x: NdSliceMut<'_, T, 1>,
-    incx: isize,
-    mut y: NdSliceMut<'_, T, 1>,
-    incy: isize,
-    c: isize,
-    s: isize,
+    n: &isize,
+    x: &mut NdSliceMut<'_, T, 1>,
+    incx: &isize,
+    y: &mut NdSliceMut<'_, T, 1>,
+    incy: &isize,
+    c: &isize,
+    s: &isize,
 ) {
+    let (n, incx, incy) = (*n, *incx, *incy);
+    let (c, s): (T, T) = (NumCast::from(*c).unwrap(), NumCast::from(*s).unwrap());
+
     if n < 0 {
         return;
     }
     let n = n as usize;
-    let c: T = NumCast::from(c).unwrap();
-    let s: T = NumCast::from(s).unwrap();
 
     if incx == 1 && incy == 1 {
         for i in 0..n {
