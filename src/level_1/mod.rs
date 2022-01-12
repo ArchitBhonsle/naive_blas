@@ -1,5 +1,6 @@
 pub mod axpy;
 pub mod copy;
+pub mod dot;
 pub mod rot;
 pub mod rotg;
 pub mod rotm;
