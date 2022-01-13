@@ -73,7 +73,7 @@ pub fn axpy_real<T: Float>(
 ///     y: modified y
 pub fn axpy_complex<T: Float>(
     n: &isize,
-    a: &Complex<Float>,
+    a: &Complex<T>,
     x: &mut NdSliceMut<'_, Complex<T>, 1>,
     incx: &isize,
     y: &mut NdSliceMut<'_, Complex<T>, 1>,
@@ -91,7 +91,7 @@ pub fn axpy_complex<T: Float>(
 
     if incx == 1 && incy == 1 {
         for i in 0..n {
-            y[[i]] += a * x[[i]];
+            y[[i]] = y[[i]] + a * x[[i]];
         }
     } else {
         let mut ix = if incx < 0 {
@@ -106,7 +106,7 @@ pub fn axpy_complex<T: Float>(
         };
 
         for _ in 0..n {
-            y[[ix as usize]] += a * x[[ix as usize]];
+            y[[ix as usize]] = y[[ix as usize]] + a * x[[ix as usize]];
 
             ix += incx;
             iy += incy;

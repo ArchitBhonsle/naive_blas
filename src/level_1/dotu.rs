@@ -1,9 +1,10 @@
 use nd_slice::NdSlice;
+use num_complex::Complex;
 use num_traits::Float;
 
-/// Computes vector-vector dot product
+/// Computes dot product of two complex vectors.
 ///
-/// res = Σ x[i] + y[i]
+/// res = x^t + y
 ///
 /// Input:
 ///     n: number of elements in x and y
@@ -12,28 +13,26 @@ use num_traits::Float;
 ///     y: vector
 ///     incy: increment for y
 /// Output:
-///     returns dot product of x and y
-///
-/// Note: dot has s, d and ds variants; sds is not implemented yet.
-pub fn dot<T: Float, U: Float>(
+///     returns dot product of complex vectors x and y
+pub fn dotu<T: Float>(
     n: &isize,
-    x: &NdSlice<'_, T, 1>,
+    x: &mut NdSlice<'_, Complex<T>, 1>,
     incx: &isize,
-    y: &NdSlice<'_, T, 1>,
+    y: &mut NdSlice<'_, Complex<T>, 1>,
     incy: &isize,
-) -> U {
+) -> Complex<T> {
     let (n, incx, incy) = (*n, *incx, *incy);
 
     if n < 0 {
-        num_traits::zero()
+        Complex::new(num_traits::zero(), num_traits::zero())
     } else {
         let n = n as usize;
 
-        let mut temp = num_traits::zero();
+        let temp = Complex::new(num_traits::zero(), num_traits::zero());
 
         if incx == 1 && incy == 1 {
             for i in 0..n {
-                temp = temp + U::from(x[[i]]).unwrap() * U::from(y[[i]]).unwrap();
+                temp = temp + x[[i]] * y[[i]];
             }
         } else {
             let mut ix = if incx < 0 {
@@ -48,8 +47,7 @@ pub fn dot<T: Float, U: Float>(
             };
 
             for _ in 0..n {
-                temp =
-                    temp + U::from(x[[ix as usize]]).unwrap() * U::from(y[[iy as usize]]).unwrap();
+                temp = temp + x[[ix as usize]] * y[[ix as usize]];
 
                 ix += incx;
                 iy += incy;
