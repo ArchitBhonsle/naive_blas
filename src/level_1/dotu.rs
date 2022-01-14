@@ -4,7 +4,7 @@ use num_traits::Float;
 
 /// Computes dot product of two complex vectors.
 ///
-/// res = x^t + y
+/// res = Σ x[i] * y[i]
 ///
 /// Input:
 ///     n: number of elements in x and y

@@ -3,7 +3,7 @@ use num_traits::Float;
 
 /// Computes vector-vector dot product
 ///
-/// res = Σ x[i] + y[i]
+/// res = Σ x[i] * y[i]
 ///
 /// Input:
 ///     n: number of elements in x and y
