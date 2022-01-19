@@ -28,7 +28,7 @@ pub fn dotu<T: Float>(
     } else {
         let n = n as usize;
 
-        let temp = Complex::new(num_traits::zero(), num_traits::zero());
+        let mut temp = Complex::new(num_traits::zero(), num_traits::zero());
 
         if incx == 1 && incy == 1 {
             for i in 0..n {
@@ -47,7 +47,7 @@ pub fn dotu<T: Float>(
             };
 
             for _ in 0..n {
-                temp = temp + x[[ix as usize]] * y[[ix as usize]];
+                temp = temp + x[[ix as usize]] * y[[iy as usize]];
 
                 ix += incx;
                 iy += incy;

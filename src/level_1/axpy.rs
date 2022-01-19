@@ -23,7 +23,8 @@ pub fn axpy_real<T: Float>(
     y: &mut NdSliceMut<'_, T, 1>,
     incy: &isize,
 ) {
-    let (n, incx, incy) = (*n, *incx, *incy);
+    let (n, a, incx, incy) = (*n, *a, *incx, *incy);
+
     if n < 0 {
         return;
     }
@@ -35,7 +36,7 @@ pub fn axpy_real<T: Float>(
 
     if incx == 1 && incy == 1 {
         for i in 0..n {
-            y[[i]] += a * x[[i]];
+            y[[i]] = y[[i]] + a * x[[i]];
         }
     } else {
         let mut ix = if incx < 0 {
@@ -50,7 +51,7 @@ pub fn axpy_real<T: Float>(
         };
 
         for _ in 0..n {
-            y[[ix as usize]] += a * x[[ix as usize]];
+            y[[iy as usize]] = y[[iy as usize]] + a * x[[ix as usize]];
 
             ix += incx;
             iy += incy;
@@ -106,7 +107,7 @@ pub fn axpy_complex<T: Float>(
         };
 
         for _ in 0..n {
-            y[[ix as usize]] = y[[ix as usize]] + a * x[[ix as usize]];
+            y[[iy as usize]] = y[[iy as usize]] + a * x[[ix as usize]];
 
             ix += incx;
             iy += incy;

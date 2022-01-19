@@ -3,6 +3,7 @@ pub mod copy;
 pub mod dot;
 pub mod dotc;
 pub mod dotu;
+pub mod nrm2;
 pub mod rot;
 pub mod rotg;
 pub mod rotm;
